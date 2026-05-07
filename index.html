@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohamed Gomaa | Senior Flutter Developer</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    :root{
+      --bg:#060816;
+      --bg2:#0f172a;
+      --primary:#7c3aed;
+      --secondary:#06b6d4;
+      --text:#ffffff;
+      --muted:#b7bfd0;
+      --card:rgba(255,255,255,0.05);
+      --border:rgba(255,255,255,0.09);
+      --shadow:0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      width:700px;
+      height:700px;
+      background:radial-gradient(circle,
+      rgba(124,58,237,0.18),
+      transparent 70%);
+      top:-300px;
+      right:-250px;
+      z-index:-1;
+      animation:float 10s ease-in-out infinite;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      width:600px;
+      height:600px;
+      background:radial-gradient(circle,
+      rgba(6,182,212,0.15),
+      transparent 70%);
+      bottom:-250px;
+      left:-200px;
+      z-index:-1;
+      animation:float 12s ease-in-out infinite reverse;
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(20px);
+      }
+    }
+
+    header{
+      width:100%;
+      position:fixed;
+      top:0;
+      z-index:999;
+      backdrop-filter:blur(20px);
+      background:rgba(6,8,22,0.5);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    nav{
+      padding:20px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .logo{
+      font-size:1.4rem;
+      font-weight:800;
+      background:linear-gradient(to right,var(--primary),var(--secondary));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:28px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:white;
+      font-weight:500;
+      transition:0.3s;
+    }
+
+    .nav-links a:hover{
+      color:var(--secondary);
+    }
+
+    section{
+      padding:120px 8%;
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:60px;
+      flex-wrap:wrap;
+    }
+
+    .hero-content{
+      flex:1;
+      min-width:300px;
+      animation:fadeUp 1s ease;
+    }
+
+    .hero-content h1{
+      font-size:4.5rem;
+      line-height:1.1;
+      margin-bottom:18px;
+    }
+
+    .hero-content h1 span{
+      background:linear-gradient(to right,var(--primary),var(--secondary));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .hero-content h2{
+      color:var(--secondary);
+      font-size:1.4rem;
+      margin-bottom:25px;
+      font-weight:600;
+    }
+
+    .hero-content p{
+      color:var(--muted);
+      line-height:1.9;
+      max-width:700px;
+      font-size:1.05rem;
+    }
+
+    .hero-buttons{
+      margin-top:35px;
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:15px 28px;
+      border-radius:16px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.35s;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .primary-btn{
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      color:white;
+      box-shadow:var(--shadow);
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-5px);
+    }
+
+    .secondary-btn{
+      border:1px solid rgba(255,255,255,0.12);
+      color:white;
+      background:rgba(255,255,255,0.03);
+    }
+
+    .secondary-btn:hover{
+      background:rgba(255,255,255,0.07);
+    }
+
+    .hero-card{
+      width:420px;
+      height:450px;
+      border-radius:35px;
+      background:linear-gradient(145deg,
+      rgba(255,255,255,0.08),
+      rgba(255,255,255,0.03));
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(20px);
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      animation:fadeIn 1.5s ease;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      width:250px;
+      height:250px;
+      background:var(--primary);
+      border-radius:50%;
+      filter:blur(120px);
+      top:-50px;
+      right:-50px;
+      opacity:0.5;
+    }
+
+    .hero-card::after{
+      content:"";
+      position:absolute;
+      width:200px;
+      height:200px;
+      background:var(--secondary);
+      border-radius:50%;
+      filter:blur(100px);
+      bottom:-50px;
+      left:-50px;
+      opacity:0.4;
+    }
+
+    .hero-icon{
+      font-size:9rem;
+      z-index:2;
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:2.8rem;
+      margin-bottom:70px;
+    }
+
+    .section-title span{
+      color:var(--secondary);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:30px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:28px;
+      padding:30px;
+      backdrop-filter:blur(14px);
+      transition:0.4s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+      box-shadow:var(--shadow);
+      border-color:rgba(124,58,237,0.4);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      width:100%;
+      height:4px;
+      top:0;
+      left:0;
+      background:linear-gradient(to right,var(--primary),var(--secondary));
+    }
+
+    .card h3{
+      font-size:1.4rem;
+      margin-bottom:15px;
+    }
+
+    .card p{
+      color:var(--muted);
+      line-height:1.8;
+      margin-bottom:20px;
+    }
+
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .tag{
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.07);
+      color:#dbe2f3;
+      font-size:0.85rem;
+    }
+
+    .timeline{
+      display:flex;
+      flex-direction:column;
+      gap:30px;
+      position:relative;
+    }
+
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:18px;
+      top:0;
+      width:2px;
+      height:100%;
+      background:rgba(255,255,255,0.12);
+    }
+
+    .timeline-item{
+      position:relative;
+      padding-left:60px;
+    }
+
+    .timeline-dot{
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:linear-gradient(to right,var(--primary),var(--secondary));
+      position:absolute;
+      left:12px;
+      top:10px;
+    }
+
+    .timeline-item h3{
+      margin-bottom:8px;
+    }
+
+    .timeline-item span{
+      color:var(--secondary);
+      font-size:0.95rem;
+    }
+
+    .timeline-item ul{
+      margin-top:18px;
+      color:var(--muted);
+      line-height:1.8;
+      padding-left:18px;
+    }
+
+    .skills-wrapper{
+      display:flex;
+      flex-wrap:wrap;
+      gap:16px;
+      justify-content:center;
+    }
+
+    .skill{
+      padding:14px 22px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.06);
+      transition:0.35s;
+    }
+
+    .skill:hover{
+      transform:translateY(-5px) scale(1.05);
+      background:rgba(124,58,237,0.15);
+    }
+
+    footer{
+      text-align:center;
+      padding:50px 8%;
+      border-top:1px solid rgba(255,255,255,0.08);
+      color:var(--muted);
+    }
+
+    .socials{
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      margin-top:25px;
+    }
+
+    .socials a{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.05);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      text-decoration:none;
+      font-size:1.2rem;
+      transition:0.35s;
+    }
+
+    .socials a:hover{
+      transform:translateY(-6px);
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(40px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:scale(0.9);
+      }
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+    }
+
+    .hidden{
+      opacity:0;
+      transform:translateY(40px);
+      transition:all 1s ease;
+    }
+
+    .show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(max-width:950px){
+
+      .hero{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .hero-content h1{
+        font-size:3rem;
+      }
+
+      .hero-buttons{
+        justify-content:center;
+      }
+
+      .hero-card{
+        width:100%;
+        max-width:380px;
+      }
+
+      .nav-links{
+        display:none;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <nav>
+
+    <div class="logo">
+      Mohamed.dev
+    </div>
+
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+  </nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <h1>
+      Senior <span>Flutter</span><br>
+      Developer
+    </h1>
+
+    <h2>
+      Building scalable mobile experiences with Flutter & AI
+    </h2>
+
+    <p>
+      Senior-Lead Flutter Developer with 6+ years of experience building
+      scalable, high-performance mobile applications using Clean Architecture,
+      real-time communication, offline-first logic, and on-device ML solutions.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="#projects" class="btn primary-btn">
+        <i class="fa-solid fa-layer-group"></i>
+        View Projects
+      </a>
+
+      <a href="#contact" class="btn secondary-btn">
+        <i class="fa-solid fa-paper-plane"></i>
+        Contact Me
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="hero-card">
+
+    <div class="hero-icon">
+      <i class="fa-brands fa-flutter"></i>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+  <h2 class="section-title hidden">
+    About <span>Me</span>
+  </h2>
+
+  <div class="grid">
+
+    <div class="card hidden">
+
+      <h3>
+        Who Am I
+      </h3>
+
+      <p>
+        I'm Mohamed Gomaa, a Senior Flutter Developer focused on building
+        scalable and secure mobile applications with modern architecture,
+        clean code principles, AI integrations, and smooth user experiences.
+      </p>
+
+    </div>
+
+    <div class="card hidden">
+
+      <h3>
+        Achievements
+      </h3>
+
+      <p>
+        Increased app stability by 30%, improved engagement by 20%,
+        optimized server latency by 40%, and delivered production-grade
+        mobile solutions across FinTech, MedTech, CRM, and booking platforms.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- EXPERIENCE -->
+
+<section id="experience">
+
+  <h2 class="section-title hidden">
+    Work <span>Experience</span>
+  </h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item hidden">
+
+      <div class="timeline-dot"></div>
+
+      <h3>
+        Senior-Lead Flutter Developer
+      </h3>
+
+      <span>
+        MedTech (Remote) • May 2025 – Present
+      </span>
+
+      <ul>
+        <li>Architected medical-grade applications with secure encrypted systems.</li>
+        <li>Improved app stability by 30% through automated testing.</li>
+        <li>Built real-time video consultation and health-tracking integrations.</li>
+        <li>Mentored junior developers and improved onboarding workflows.</li>
+      </ul>
+
+    </div>
+
+    <div class="timeline-item hidden">
+
+      <div class="timeline-dot"></div>
+
+      <h3>
+        Senior Flutter Developer
+      </h3>
+
+      <span>
+        Corporatica (USA Remote) • Apr 2024 – Apr 2025
+      </span>
+
+      <ul>
+        <li>Developed offline-first enterprise solutions for 100+ field representatives.</li>
+        <li>Integrated on-device machine learning models.</li>
+        <li>Reduced latency by 40% with edge-computing optimization.</li>
+      </ul>
+
+    </div>
+
+    <div class="timeline-item hidden">
+
+      <div class="timeline-dot"></div>
+
+      <h3>
+        Mid-Senior Flutter Developer
+      </h3>
+
+      <span>
+        SoficoPharm • Jan 2022 – Mar 2024
+      </span>
+
+      <ul>
+        <li>Improved engagement by 20% for 10k+ active users.</li>
+        <li>Enhanced application security and vulnerability protection.</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+
+  <h2 class="section-title hidden">
+    Featured <span>Projects</span>
+  </h2>
+
+  <div class="grid">
+
+    <div class="card hidden">
+
+      <h3>
+        Hakbah — FinTech
+      </h3>
+
+      <p>
+        Secure FinTech platform developed in collaboration with the
+        Saudi Arabia Central Bank featuring wallets, transactions,
+        marketplaces, and monthly contribution management.
+      </p>
+
+      <div class="tags">
+        <div class="tag">FinTech</div>
+        <div class="tag">Security</div>
+        <div class="tag">Flutter</div>
+      </div>
+
+    </div>
+
+    <div class="card hidden">
+
+      <h3>
+        Pharmacy CRM
+      </h3>
+
+      <p>
+        Advanced CRM system for pharmacists and distributors with inventory
+        management, drug validation, procurement optimization,
+        and B2B communication workflows.
+      </p>
+
+      <div class="tags">
+        <div class="tag">CRM</div>
+        <div class="tag">Inventory</div>
+        <div class="tag">B2B</div>
+      </div>
+
+    </div>
+
+    <div class="card hidden">
+
+      <h3>
+        Locandah
+      </h3>
+
+      <p>
+        Airbnb-style booking platform with accommodation listings,
+        booking management, secure payment processing,
+        reviews, and personalized recommendations.
+      </p>
+
+      <div class="tags">
+        <div class="tag">Booking</div>
+        <div class="tag">Maps</div>
+        <div class="tag">Payments</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SKILLS -->
+
+<section id="skills">
+
+  <h2 class="section-title hidden">
+    Technical <span>Skills</span>
+  </h2>
+
+  <div class="skills-wrapper hidden">
+
+    <div class="skill">Flutter</div>
+    <div class="skill">Dart</div>
+    <div class="skill">Firebase</div>
+    <div class="skill">Clean Architecture</div>
+    <div class="skill">CI/CD</div>
+    <div class="skill">Machine Learning</div>
+    <div class="skill">Google Maps API</div>
+    <div class="skill">Unit Testing</div>
+    <div class="skill">Integration Testing</div>
+    <div class="skill">Git</div>
+    <div class="skill">SOLID</div>
+    <div class="skill">Design Patterns</div>
+    <div class="skill">Real-time Communication</div>
+    <div class="skill">Offline-first Apps</div>
+
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+  <h2 class="section-title hidden">
+    Let's <span>Connect</span>
+  </h2>
+
+  <div class="card hidden" style="text-align:center;">
+
+    <p>
+      Open for remote opportunities, freelance work,
+      and innovative mobile projects.
+    </p>
+
+    <div class="socials">
+
+      <a href="mailto:MohamedGomaaRadwan@gmail.com">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+
+      <a href="#">
+        <i class="fa-brands fa-github"></i>
+      </a>
+
+      <a href="#">
+        <i class="fa-brands fa-linkedin"></i>
+      </a>
+
+      <a href="tel:+201025619453">
+        <i class="fa-solid fa-phone"></i>
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+
+  © 2026 Mohamed Gomaa — Senior Flutter Developer
+
+</footer>
+
+<script>
+
+  // Scroll reveal animation
+
+  const hiddenElements = document.querySelectorAll(".hidden");
+
+  const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+      }
+
+    });
+
+  });
+
+  hiddenElements.forEach(el => observer.observe(el));
+
+  // Tilt effect
+
+  document.querySelectorAll(".card").forEach(card => {
+
+    card.addEventListener("mousemove", (e) => {
+
+      const rect = card.getBoundingClientRect();
+
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const rotateY = ((x / rect.width) - 0.5) * 10;
+      const rotateX = ((y / rect.height) - 0.5) * -10;
+
+      card.style.transform =
+        `perspective(1000px)
+         rotateX(${rotateX}deg)
+         rotateY(${rotateY}deg)
+         translateY(-8px)`;
+
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+      card.style.transform =
+        "perspective(1000px) rotateX(0) rotateY(0) translateY(0)";
+
+    });
+
+  });
+
+</script>
+
+</body>
+</html>
